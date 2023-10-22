@@ -6,6 +6,45 @@ servers:
 - url: http://localhost:8080
   description: Generated server url
 paths:
+  /api/employees/{employeeId}:
+    put:
+      tags:
+      - employee-controller
+      operationId: updatedEmployee
+      parameters:
+      - name: employeeId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeeRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Employee'
+    delete:
+      tags:
+      - employee-controller
+      operationId: deleteEmployee
+      parameters:
+      - name: employeeId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "204":
+          description: No Content
   /api/employees:
     get:
       tags:
@@ -28,32 +67,26 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Employee'
+              $ref: '#/components/schemas/EmployeeRequest'
         required: true
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           content:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Employee'
-  /api/employees/{employeeId}:
-    delete:
-      tags:
-      - employee-controller
-      operationId: deleteEmployee
-      parameters:
-      - name: employeeId
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
-      responses:
-        "200":
-          description: OK
 components:
   schemas:
+    EmployeeRequest:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
     Employee:
       type: object
       properties:

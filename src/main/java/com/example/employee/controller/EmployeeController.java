@@ -22,13 +22,13 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/employees")
     public List<Employee> getEmployees() {
         return employeeService.getEmployees();
     }
 
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/employees")
     public Employee createEmployee(@RequestBody EmployeeRequest employee) {
         return employeeService.createEmployee(employee);
