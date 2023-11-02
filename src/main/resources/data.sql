@@ -5,4 +5,15 @@
 --     EMAIL VARCHAR(255)
 -- );
 
-INSERT INTO EMPLOYEE(FIRST_NAME, LAST_NAME, EMAIL) VALUES ('Bilbo', 'Baggins', 'bilbo@bagend.me');
+-- INSERT INTO EMPLOYEE(FIRST_NAME, LAST_NAME, EMAIL) VALUES ('Bilbo', 'Baggins', 'bilbo@bagend.me');
+INSERT INTO employee(first_name, last_name, email) VALUES ('Bilbo', 'Baggins', 'bilbo@bagend.me');
+
+
+INSERT INTO employee(first_name, last_name, email)
+SELECT 'Bilbo','Baggins', 'bilbo@bagend.me'
+FROM dual
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM employee
+    WHERE first_name = 'Bilbo'
+);
